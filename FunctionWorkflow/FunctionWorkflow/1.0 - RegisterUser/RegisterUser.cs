@@ -13,16 +13,16 @@ using System.Net.Http.Headers;
 namespace FunctionWorkflow
 {
 
-    public static class RegisterUser
+    public class RegisterUser
     {
         [FunctionName("RegisterUser")]
-        public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, methods: "post", Route = "OrdineCliente")] HttpRequestMessage req,
+        public async Task<HttpResponseMessage> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, methods: "post", Route = "RegistraUtente")] HttpRequestMessage req,
             [OrchestrationClient] DurableOrchestrationClient starter,
             ILogger logger)
         {
             RegisterUserDto registerUserDto = await req.Content.ReadAsAsync<RegisterUserDto>();
-            string instanceId = await starter.StartNewAsync(Workflow.RegisterUserManager, registerUserDto);
+            string instanceId = await starter.StartNewAsync(Workflow.RegisterUserOrchestrator, registerUserDto);
 
             // Verifica completamento lavoro...
             logger.LogInformation($"Inizio Orchestratore con ID = '{instanceId}'.");
