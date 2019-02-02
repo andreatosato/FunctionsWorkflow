@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FunctionWorkflow
 {
-    public class ConfirRegistrationActivity
+    public class ConfirmRegistrationActivity
     {
         [FunctionName(Workflow.ConfirmRegistration)]
         public static string Run(
